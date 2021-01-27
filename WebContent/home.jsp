@@ -16,7 +16,7 @@
 	<form method="post" action="${logoutUrl}">
 		<input value="Logout" type="submit"> 
 		<a href="productPage.jsp">購物</a>
-		<a href="/selectmember">會員專區</a>
+		<a href="member.jsp">會員專區</a>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 	

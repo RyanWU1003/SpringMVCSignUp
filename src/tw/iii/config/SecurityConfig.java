@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.loginPage("/login")
 			.usernameParameter("account")
 			.loginProcessingUrl("/perform_login")
-			.defaultSuccessUrl("/home", true)
+			.defaultSuccessUrl("/home.jsp", true)
 			.failureUrl("/login?error")
 			.and()
 		.logout()
