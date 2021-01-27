@@ -15,7 +15,7 @@
 	<c:url value="/perform_logout" var="logoutUrl" />
 	<form method="post" action="${logoutUrl}">
 		<input value="Logout" type="submit"> 
-		<a href="/productPage">購物</a>
+		<a href="productPage.jsp">購物</a>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 	

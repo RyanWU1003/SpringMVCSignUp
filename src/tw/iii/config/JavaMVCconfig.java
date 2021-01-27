@@ -35,7 +35,7 @@ public class JavaMVCconfig implements WebMvcConfigurer {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName("index");
 		registry.addViewController("/register.controller").setViewName("register");
-		registry.addViewController("/productPage").setViewName("productPage");
+		registry.addViewController("/productPage").setViewName("productPage.jsp");
 		
 	}
 
