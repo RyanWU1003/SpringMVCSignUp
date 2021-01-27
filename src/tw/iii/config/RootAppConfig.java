@@ -29,21 +29,21 @@ public class RootAppConfig {
 
 	@Bean
 	public DataSource dataSource() throws IllegalArgumentException, NamingException {
-//		JndiObjectFactoryBean factoryBean = new JndiObjectFactoryBean();
-//		factoryBean.setJndiName("java:comp/env/connectSQLServerJdbc/OrderService");
-//		factoryBean.setProxyInterface(DataSource.class);
-//		factoryBean.setLookupOnStartup(false);
-//		factoryBean.afterPropertiesSet();
-//		DataSource ds = (DataSource) factoryBean.getObject();
-//		System.out.println("ds:"+ds);
-//		return ds;
+		JndiObjectFactoryBean factoryBean = new JndiObjectFactoryBean();
+		factoryBean.setJndiName("java:comp/env/connectSQLServerJdbc/OrderService");
+		factoryBean.setProxyInterface(DataSource.class);
+		factoryBean.setLookupOnStartup(false);
+		factoryBean.afterPropertiesSet();
+		DataSource ds = (DataSource) factoryBean.getObject();
+		System.out.println("ds:"+ds);
+		return ds;
 		
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		dataSource.setUrl("jdbc:sqlserver://localhost:1433;databaseName=Topic");
-		dataSource.setUsername("watcher");
-		dataSource.setPassword("P@ssw0rd");
-		return dataSource;
+//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//		dataSource.setUrl("jdbc:sqlserver://localhost:1433;databaseName=Topic");
+//		dataSource.setUsername("watcher");
+//		dataSource.setPassword("P@ssw0rd");
+//		return dataSource;
 		
 	}
 	public Properties hibernateProperties() {

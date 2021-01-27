@@ -20,11 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.authorizeRequests()
-	      .antMatchers("/login").permitAll()
-	      .antMatchers("/register.jsp").permitAll()
-	      .antMatchers("/css/**").permitAll()
-	      .antMatchers("/register.controller").permitAll()
-	      .antMatchers("/home").hasAnyRole("USER")
+	      .antMatchers("/login","/register.jsp","/register.controller","/css/**","/getAllProduct","/getProductDetail","/selectSpecies","/selectBrand").permitAll()
+	      .antMatchers("/home","/addToCart","/loadMyCart","/goToCart").hasAnyRole("USER")
 			.anyRequest().authenticated()
 			.and()
 			

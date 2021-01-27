@@ -1,12 +1,17 @@
 package tw.iii.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,6 +43,9 @@ public class Member {
 	
 	@Column(name = "GENDER")
 	private String gender;
+	
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member",cascade = CascadeType.ALL)
+	private Set<TradingRecord> tradingRecord = new HashSet<TradingRecord>(); 
 	
 	public Member() {
 		
@@ -115,6 +123,14 @@ public class Member {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+	
+	public Set<TradingRecord> getTradingRecord() {
+		return tradingRecord;
+	}
+
+	public void setTradingRecord(Set<TradingRecord> tradingRecord) {
+		this.tradingRecord = tradingRecord;
 	}
 
 }
