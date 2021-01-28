@@ -9,9 +9,10 @@ public interface IMemberDao {
 	public Member selecter(String Account);
 	public Member getAccount(String Account);
 	public List<Member> select(String Account);
+	public List<Member> selectOldpwd(String Account);
 	public List<Member> selectpwd(String Account,String email);
 	public List<Member> selectAll();
-	public Member update(String Account,String Password);
+	public Member updatepassword(String Account,String Password);
 	public Member updateAll(String Account,String userName,String email,String phone,String address,Date birthday,String gender);
 	public boolean checkLogin(String Account,String Password);
 	public boolean forgetpwd(String Account,String email);

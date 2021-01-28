@@ -60,6 +60,12 @@ public class MemberDAO implements IMemberDao {
 	//select account,userName,email,phone,address,birthday,gender from member where account=?1
 	}
 	
+	public List<Member> selectOldpwd(String Account) {
+		Session session = sessionfactory.getCurrentSession();
+		Query<Member> query = session.createQuery("select password from Member where account=?1");
+		query.setParameter(1, Account);
+		return query.list();
+	}
 	
 
 	@Override
@@ -79,7 +85,7 @@ public class MemberDAO implements IMemberDao {
 	}
 
 	@Override
-	public Member update(String Account,String Password) {
+	public Member updatepassword(String Account,String Password) {
 		Session session = sessionfactory.getCurrentSession();
 		Member mbr = session.get(Member.class, Account);
 		if(mbr != null) {

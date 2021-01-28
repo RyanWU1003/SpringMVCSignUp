@@ -6,10 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>會員專區</title>
 </head>
 <body>
-<h3>登入成功</h3>
 <c:url value="select_member" var="memberUrl" />
 <form method="get" action="${memberUrl} }">
 <c:choose>
@@ -44,9 +43,7 @@
 
 <tr>
 <th>生日</th>
-<th><% SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date br = sdf1.parse(${member.birthday});
-		System.out.println(br)%></th><!-- ${member.birthday} -->
+<th>${member.birthday}</th><!-- ${member.birthday} -->
 </tr>
 
 <tr>
@@ -57,6 +54,7 @@
 </table>
 </c:when>
 </c:choose>
+<a href="changepwd.jsp">更換密碼</a>
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 </body>

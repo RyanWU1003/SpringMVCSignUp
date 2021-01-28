@@ -29,6 +29,11 @@ public class MemberService {
 		return mDao.select(Account);
 		
 	};
+	
+	public List<Member> selectOldpwd(String Account) {
+		return mDao.selectOldpwd(Account);
+	}
+	
 	public List<Member> selectpwd(String Account,String email){
 		
 		return mDao.selectpwd(Account, email);
@@ -42,9 +47,9 @@ public class MemberService {
 		
 	};
 	
-	public Member update(String Account,String Password) {
+	public Member updatepassword(String Account,String Password) {
 		
-		return mDao.update(Account, Password);
+		return mDao.updatepassword(Account, Password);
 	};
 	
 	public Member updateAll(String Account,String userName,String email,String phone,String address,Date birthday,String gender) {
