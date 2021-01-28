@@ -54,9 +54,10 @@ public class MemberDAO implements IMemberDao {
 	@Override
 	public List<Member> select(String Account) {
 		Session session = sessionfactory.getCurrentSession();
-		Query<Member> query = session.createQuery("account,userName,email,phone,address,birthday,gender from member where account=?1");
+		Query<Member> query = session.createQuery("from Member where account=?1");
 		query.setParameter(1, Account);
 		return query.list();
+	//select account,userName,email,phone,address,birthday,gender from member where account=?1
 	}
 	
 	

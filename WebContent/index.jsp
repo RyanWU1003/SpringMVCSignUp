@@ -12,23 +12,22 @@
 </head>
 <body>
 <div class="container">
-<%-- <c:url value="/login" var="loginUrl"/> --%>
-<form method="post" action="login">
-<%-- <form method="post" action="/${loginUrl}"> --%>
+<c:url value="perform_login" var="loginUrl" />
+<form method="post" action="${loginUrl }">
+<!-- <form method="post" action="login"> -->
  <h2>Login</h2>
  			
             <input type="text" name="account"  placeholder="Account" class="account" autocomplete="off" />${errors.account}
-            </br>
-            </br>
+            <br>
+            <br>
             <input type="password" name="password" placeholder="Password" class="password" />${errors.password}
-            </br>
-            </br>
+            <br>
+            <br>
             <input type="submit" id="btn-submit" value="submit"/><a href="register.jsp">註冊</a>
-            </br>
-            </br>
+            <br>
+            <br>
             <a href="forgetpwd.jsp">忘記密碼?</a>
             <span id="warning">${errors.error}<br></span>
-            <a href="#">登出</a>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 </div>

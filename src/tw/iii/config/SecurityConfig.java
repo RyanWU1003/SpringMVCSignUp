@@ -20,8 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.authorizeRequests()
-	      .antMatchers("/login","/register.jsp","/register.controller","/css/**","/getAllProduct","/getProductDetail","/selectSpecies","/selectBrand").permitAll()
-	      .antMatchers("/home","/addToCart","/loadMyCart","/goToCart").hasAnyRole("USER")
+	      .antMatchers("/home","/login","/register.jsp","/register.controller","/css/**","/getAllProduct","/getProductDetail","/selectSpecies","/selectBrand").permitAll()
+	      .antMatchers("/addToCart","/loadMyCart","/goToCart").hasAnyRole("USER")
 			.anyRequest().authenticated()
 			.and()
 			
@@ -34,7 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 		.logout()
 			.logoutUrl("/perform_logout")
-			.logoutSuccessUrl("/login");
+			.invalidateHttpSession(true)
+			.deleteCookies("JSESSIONID")
+			.logoutSuccessUrl("/home.jsp");
 	}
 	
 	@Bean 

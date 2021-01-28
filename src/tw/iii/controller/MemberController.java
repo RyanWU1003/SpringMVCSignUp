@@ -13,11 +13,11 @@ import tw.iii.model.MemberService;
 public class MemberController {
 	@Autowired
 	private MemberService mbs;
-	@RequestMapping(path = "/selectmember",method = RequestMethod.GET)
+	@RequestMapping(path = "/select_member",method = RequestMethod.GET)
 	public String selectmember(Model m) {
 		String account = SecurityContextHolder.getContext().getAuthentication().getName();
 		m.addAttribute("selection","all");
-		m.addAttribute("memberList",mbs.selecter(account));
+		m.addAttribute("memberList",mbs.select(account));
 		System.out.println(account);
 		return "member";
 	}
