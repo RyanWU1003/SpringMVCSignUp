@@ -10,7 +10,7 @@
 </head>
 <body>
 <c:url value="select_member" var="memberUrl" />
-<form method="get" action="${memberUrl} }">
+<form method="post" action="${memberUrl} }">
 <c:choose>
 <c:when test="${selection == 'all' or empty selection}">
 <c:forEach var="member" items="${memberList }">

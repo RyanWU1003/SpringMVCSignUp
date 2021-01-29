@@ -9,6 +9,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 @Repository("memberDAO")
@@ -19,6 +21,10 @@ public class MemberDAO implements IMemberDao {
 	
 	public MemberDAO(SessionFactory sessionfactory) {
 		this.sessionfactory=sessionfactory;
+	}
+	
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 	@Override
@@ -54,8 +60,16 @@ public class MemberDAO implements IMemberDao {
 	@Override
 	public List<Member> select(String Account) {
 		Session session = sessionfactory.getCurrentSession();
-		Query<Member> query = session.createQuery("from Member where account=?1");
-		query.setParameter(1, Account);
+		Query<Member> query = null;
+//		try {
+//	    	session.beginTransaction();
+	    	query = session.createQuery("from Member where account=?1");
+	    	query.setParameter(1, Account);
+//	    	session.getTransaction().commit();
+//		} catch (Exception e) {
+//        	session.getTransaction().rollback();
+//			e.printStackTrace();
+//		}
 		return query.list();
 	//select account,userName,email,phone,address,birthday,gender from member where account=?1
 	}
@@ -89,7 +103,7 @@ public class MemberDAO implements IMemberDao {
 		Session session = sessionfactory.getCurrentSession();
 		Member mbr = session.get(Member.class, Account);
 		if(mbr != null) {
-			mbr.setPassword(Password);
+			mbr.setPassword(passwordEncoder().encode(Password));
 			session.save(mbr);
 		}
 		

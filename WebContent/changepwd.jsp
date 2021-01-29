@@ -13,15 +13,14 @@
 <tr>
 <td>舊密碼</td>
 <td><input type="text" id="oldpassword" name="oldpassword" /></td>
-<td>${err.account }${err.repeat}${err.accountformat }</td>
+<td>${err.checkoldpwd }</td>
 </tr>
 <td>新密碼</td>
 <td><input type="text" id="newpassword" name="newpassword" /></td>
-<td>${err.account }${err.repeat}${err.accountformat }</td>
 </tr>
 <td>確認密碼</td>
 <td><input type="text" id="checkpassword" name="checkpassword" /></td>
-<td>${err.account }${err.repeat}${err.accountformat }</td>
+<td>${err.newpwderr }</td>
 </tr>
 </table>
 

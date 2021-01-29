@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		System.out.println(passwordEncoder().encode("jojo"));
+//		System.out.println(passwordEncoder().encode("jojo"));
 		auth.userDetailsService(demoUserDetailsService).passwordEncoder(passwordEncoder());		//.userDetailsPasswordManager()
 		
 //		auth.inMemoryAuthentication()		//由記憶體存取
