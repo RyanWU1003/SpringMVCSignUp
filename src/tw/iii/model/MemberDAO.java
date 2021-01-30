@@ -2,6 +2,8 @@ package tw.iii.model;
 
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -111,7 +113,7 @@ public class MemberDAO implements IMemberDao {
 	}
 
 	@Override
-	public Member updateAll(String Account,String userName, String email, String phone, String address, Date birthday, String gender) {
+	public Member updateAll(String Account,String userName, String email, String phone, String address, String birthday, String gender) throws ParseException {
 		Session session = sessionfactory.getCurrentSession();
 		Member mbr = session.get(Member.class, Account);
 		
@@ -120,7 +122,9 @@ public class MemberDAO implements IMemberDao {
 			mbr.setEmail(email);
 			mbr.setPhone(phone);
 			mbr.setAddress(address);
-			mbr.setBirthday(birthday);
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date br = sdf1.parse(birthday);
+			mbr.setBirthday(br);
 			mbr.setGender(gender);
 			
 			session.save(mbr);

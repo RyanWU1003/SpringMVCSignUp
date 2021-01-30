@@ -1,5 +1,6 @@
 package tw.iii.controller;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,12 +70,32 @@ public class MemberController {
 		}
 		mbs.updatepassword(account, newpwd);
 		
-//		System.out.println(account);
-//		System.out.println("-------------");
-//		System.out.println(old);		//old
-//		System.out.println(oldpwd);
-//		System.out.println(check);
 		return "index";
+	}
+	
+	
+	@RequestMapping(path = "/updatePage",method = RequestMethod.GET)
+	public String updatePag(Model m) {
+		String account = SecurityContextHolder.getContext().getAuthentication().getName();
+		m.addAttribute("selection","update");
+		m.addAttribute("memberList",mbs.select(account));
+		System.out.println(account);
+		return "member";
+	}
+	
+	//更新會員資料
+	@RequestMapping(path = "/update_member",method = RequestMethod.POST)
+	public String updatemember(@RequestParam(name = "username") String username ,
+			@RequestParam(name = "email") String email ,
+			@RequestParam(name = "phone") String phone ,
+			@RequestParam(name = "address") String address ,
+			@RequestParam(name = "birthday") String birthday ,
+			@RequestParam(name = "gender") String gender ,
+			Model m) throws ParseException {
+		String account = SecurityContextHolder.getContext().getAuthentication().getName();
+		mbs.updateAll(account, username, email, phone, address, birthday, gender);
+		
+		return "home" ;
 	}
 	
 }

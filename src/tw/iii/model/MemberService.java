@@ -2,6 +2,7 @@ package tw.iii.model;
 
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class MemberService {
 		return mDao.updatepassword(Account, Password);
 	};
 	
-	public Member updateAll(String Account,String userName,String email,String phone,String address,Date birthday,String gender) {
+	public Member updateAll(String Account,String userName,String email,String phone,String address,String birthday,String gender) throws ParseException {
 		
 		return mDao.updateAll(Account, userName, email, phone, address, birthday, gender);
 	};
