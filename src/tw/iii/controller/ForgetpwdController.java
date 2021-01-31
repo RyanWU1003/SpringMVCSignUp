@@ -22,19 +22,16 @@ public class ForgetpwdController {
 	public String forgetpwd(@RequestParam(name = "account") String account,@RequestParam(name = "email") String email,Model m) {
 		Map<String, String> err = new HashMap<String,String>();
 		boolean ispwd = mbs.forgetpwd(account, email);
-		boolean isaccount = mbs.checkaccount(account);
 		if(account == null ||account.length()==0) {
 			err.put("account", "請輸入帳號");
-		}else if(!isaccount) {
-			err.put("checkaccount", "請確認帳號");
 		}
 		if(email==null || email.length()==0) {
 			err.put("email", "請輸入E-mail");	
 		}
-		if(ispwd) {
-			List<Member> pwd=mbs.selectpwd(account, email);
-			
+		if(!ispwd) {
+			err.put("err", "請確認輸入著信箱或帳號是否正確");
 		}
+		
 		return "";
 	}
 }
