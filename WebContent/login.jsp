@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,17 +10,7 @@
 <link rel="stylesheet" href="<c:url value="/css/login.css"/>">
 </head>
 <body>
-Hello world 
-<%-- 	<%= SecurityContextHolder.getContext().getAuthentication().getName() %>	<!-- 取得登入的帳號 --> --%>
-	<c:url value="/perform_logout" var="logoutUrl" />
-	<form method="post" action="${logoutUrl}">
-		<input value="Logout" type="submit"> 
-		<a href="productPage.jsp">購物</a>
-		<a href="member.jsp">會員專區</a>	<!-- "select_member"    member.jsp-->
-		<a href="login.jsp">登入</a>
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-	</form>
-<%-- <div class="container">
+<div class="container">
 <c:url value="perform_login" var="loginUrl" />
 <form method="post" action="${loginUrl }">
 <!-- <form method="post" action="login"> -->
@@ -39,8 +28,6 @@ Hello world
             <a href="forgetpwd.jsp">忘記密碼?</a>
             <span id="warning">${errors.error}<br></span>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-</form> --%>
-</div>
-
+</form>
 </body>
 </html>

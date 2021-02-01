@@ -1,7 +1,7 @@
 package tw.iii.model;
 
 
-import java.sql.Date;
+//import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -45,16 +45,17 @@ public class MemberDAO implements IMemberDao {
 
 	@Override
 	public Member selecter(String Account) {
-		Member mbr = null;
-		Session session = sessionfactory.getCurrentSession();
-		try {
-	    	session.beginTransaction();
-			mbr = session.get(Member.class, Account);
-	    	session.getTransaction().commit();
-		} catch (Exception e) {
-        	session.getTransaction().rollback();
-			e.printStackTrace();
-		}
+//		Member mbr = null;
+		Session session = sessionfactory.openSession();		//getCurrentSession()/openSession()
+//		try {
+//	    	session.beginTransaction();
+	    	Member mbr = session.get(Member.class, Account);
+//	    	session.getTransaction().commit();
+//		} catch (Exception e) {
+//        	session.getTransaction().rollback();
+//			e.printStackTrace();
+//		}
+	    session.close();
 		return mbr;
 	}
 	
@@ -73,7 +74,6 @@ public class MemberDAO implements IMemberDao {
 //			e.printStackTrace();
 //		}
 		return query.list();
-	//select account,userName,email,phone,address,birthday,gender from member where account=?1
 	}
 	
 	public List<Member> selectOldpwd(String Account) {
@@ -85,9 +85,9 @@ public class MemberDAO implements IMemberDao {
 	
 
 	@Override
-	public List<Member> selectpwd(String Account, String email) {
+	public List<Member> selectemail(String Account, String email) {
 		Session session = sessionfactory.getCurrentSession();
-		Query<Member> query = session.createQuery("password from Member where account=?1 and email=?2");
+		Query<Member> query = session.createQuery("select email from Member where account=?1 and email=?2");
 		query.setParameter(1, Account);
 		query.setParameter(2, email);
 		return query.list();

@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jndi.JndiObjectFactoryBean;
+//import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -72,4 +73,22 @@ public class RootAppConfig {
 		htManager.setSessionFactory(sessionFactory);
 		return htManager;
 	}
+	
+//	public Properties javamailProperties(){
+//		Properties mailProperties = new Properties();
+//		mailProperties.put("mail.smtp.auth", "true");
+//		mailProperties.put("mail.smtp.starttls.enable", "true");
+//		
+//		
+//		
+//	}
+//	public JavaMailSenderImpl mailSender{
+//		JavaMailSenderImpl mailutil = new JavaMailSenderImpl();
+//		mailutil.setHost("smtp.gmail.com");
+//		mailutil.setPort(587);
+//		mailutil.setUsername("testw1003@gmail.com");
+//		mailutil.setPassword("qwe@258741");
+//		mailutil.setJavaMailProperties(javaMailProperties);
+//	}
+	
 }

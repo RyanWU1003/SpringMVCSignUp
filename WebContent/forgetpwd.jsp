@@ -8,18 +8,13 @@
 </head>
 <body>
 
-<form action="checkpassword.controller" method="post">
+<form action="forgetpwd.controller" method="post">
 <table>
-<tr>
-<td>舊密碼</td>
-<td><input type="text" id="oldpassword" name="oldpassword" /></td>
-<td>${err.checkoldpwd }</td>
+<td>帳號</td>
+<td><input type="text" id="account" name="account" /></td>
 </tr>
-<td>新密碼</td>
-<td><input type="password" id="newpassword" name="newpassword" /></td>
-</tr>
-<td>確認密碼</td>
-<td><input type="password" id="checkpassword" name="checkpassword" /></td>
+<td>信箱</td>
+<td><input type="text" id="email" name="email" /></td>
 <td>${err.newpwderr }</td>
 </tr>
 </table>

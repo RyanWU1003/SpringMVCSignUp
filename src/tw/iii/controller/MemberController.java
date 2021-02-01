@@ -4,6 +4,16 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,7 +46,7 @@ public class MemberController {
 		m.addAttribute("selection","all");
 		m.addAttribute("memberList",mbs.select(account));
 		System.out.println(account);
-		return "member";
+		return "member.jsp";
 	}
 	
 	//更換密碼
@@ -66,11 +76,11 @@ public class MemberController {
 		}
 		m.addAttribute("err",err);
 		if(err!=null && !err.isEmpty()) {
-			return "changepwd";
+			return "changepwd.jsp";
 		}
 		mbs.updatepassword(account, newpwd);
 		
-		return "index";
+		return "login.jsp";
 	}
 	
 	
@@ -80,7 +90,7 @@ public class MemberController {
 		m.addAttribute("selection","update");
 		m.addAttribute("memberList",mbs.select(account));
 		System.out.println(account);
-		return "member";
+		return "member.jsp";
 	}
 	
 	//更新會員資料
@@ -95,7 +105,70 @@ public class MemberController {
 		String account = SecurityContextHolder.getContext().getAuthentication().getName();
 		mbs.updateAll(account, username, email, phone, address, birthday, gender);
 		
-		return "home" ;
+		return "member.jsp" ;
+	}
+	
+	@RequestMapping(path = "/forgetpwd.controller",method = RequestMethod.POST)
+	public String forgetpwd(@RequestParam(name = "account") String account,@RequestParam(name = "email") String email,Model m) {
+		Map<String, String> err = new HashMap<String,String>();
+		boolean ispwd = mbs.forgetpwd(account, email);
+		if(account == null ||account.length()==0) {
+			err.put("account", "請輸入帳號");
+		}
+		if(email==null || email.length()==0) {
+			err.put("email", "請輸入E-mail");	
+		}
+		if(!ispwd) {
+			err.put("err", "請確認輸入著信箱或帳號是否正確");
+		}
+		m.addAttribute("err",err);
+		if(err!=null && !err.isEmpty()) {
+			return "forgetpwd";
+		}
+		List<Member> mail=mbs.selectemail(account, email);
+		String mail1 = mail.toString().trim();
+		mail1 = mail1.substring(1, mail1.length() - 1);
+		System.out.println(mail1);
+		int x = (int) (100+Math.random()*1000);
+		String pwd = "asd"+String.valueOf(x);
+		System.out.println(pwd);
+		
+		mbs.updatepassword(account, pwd);
+		
+		String host = "smtp.gmail.com";			//Gmail的TLS or SSL(身分驗證)
+		int port = 587;							//Gmail的TLS/STARTTLS 的Port號
+		final String sendUserMail = "testw1003@gmail.com";
+		final String sendUserpassword = "qwe@258741";
+		
+		Properties props = new Properties();
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.auth", "true");		//這個引數設為true，讓伺服器進行認證,認證使用者名稱和密碼是否正確
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.port", port);
+		
+		Session session = Session.getInstance(props, new Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(sendUserMail, sendUserpassword);//取得寄信信箱/密碼設定
+			}
+		});
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(sendUserMail));//寄信人信箱
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail1));//收信人信箱
+			message.setSubject("忘記密碼");						//寄信標題
+			message.setText("你的新密碼為:"+pwd+"\n請重新登入後立即更換密碼，保護帳號安全");				//寄信內容
+			Transport transport = session.getTransport("smtp");
+			transport.connect(host, sendUserMail, sendUserpassword);
+			transport.send(message);
+			System.out.println("寄信成功111");
+			
+		} catch (MessagingException e) {
+			
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+		return "login.jsp";
 	}
 	
 }

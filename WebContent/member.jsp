@@ -10,7 +10,7 @@
 </head>
 <body>
 <c:url value="select_member" var="memberUrl" />
-<form method="post" action="${memberUrl} }"></form>
+<form method="get" action="${memberUrl} }"></form>
 
 <c:url value="updatePage" var="memberUrl" />
 <form method="get" action="${memberUrl} }"></form>

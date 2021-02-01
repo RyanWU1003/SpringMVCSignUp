@@ -33,8 +33,8 @@ public class JavaMVCconfig implements WebMvcConfigurer {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/login").setViewName("index");
-		registry.addViewController("/register.controller").setViewName("register");
+		registry.addViewController("/login").setViewName("login.jsp");
+		registry.addViewController("/register.controller").setViewName("register.jsp");
 		registry.addViewController("/productPage").setViewName("productPage.jsp");
 		registry.addViewController("/").setViewName("home.jsp");
 		
@@ -47,7 +47,7 @@ public class JavaMVCconfig implements WebMvcConfigurer {
 		viewResolver.setViewClass(JstlView.class);
 //		viewResolver.setPrefix("/WEB-INF/html/");
 		viewResolver.setPrefix("/");
-		viewResolver.setSuffix(".jsp");
+//		viewResolver.setSuffix(".jsp");
 //		viewResolver.setOrder(2);
 		return viewResolver;
 	}

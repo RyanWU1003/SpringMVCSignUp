@@ -35,9 +35,9 @@ public class MemberService {
 		return mDao.selectOldpwd(Account);
 	}
 	
-	public List<Member> selectpwd(String Account,String email){
+	public List<Member> selectemail(String Account,String email){
 		
-		return mDao.selectpwd(Account, email);
+		return mDao.selectemail(Account, email);
 		
 	};
 	
