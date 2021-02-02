@@ -107,7 +107,7 @@ public class MemberController {
 		
 		return "member.jsp" ;
 	}
-	
+	//忘記密碼寄系統信
 	@RequestMapping(path = "/forgetpwd.controller",method = RequestMethod.POST)
 	public String forgetpwd(@RequestParam(name = "account") String account,@RequestParam(name = "email") String email,Model m) {
 		Map<String, String> err = new HashMap<String,String>();
@@ -156,7 +156,7 @@ public class MemberController {
 			message.setFrom(new InternetAddress(sendUserMail));//寄信人信箱
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail1));//收信人信箱
 			message.setSubject("忘記密碼");						//寄信標題
-			message.setText("你的新密碼為:"+pwd+"\n請重新登入後立即更換密碼，保護帳號安全");				//寄信內容
+			message.setText("你的新密碼為： \n"+pwd+"\n請重新登入後立即更換密碼，保護帳號安全");				//寄信內容
 			Transport transport = session.getTransport("smtp");
 			transport.connect(host, sendUserMail, sendUserpassword);
 			transport.send(message);

@@ -9,7 +9,7 @@
 <body>
 <div>
 <h3>註冊成功</h3>
-<a href="#">點此回首頁</a>
+<a href="home.jsp">點此回首頁</a>
 </div>
 </body>
 </html>

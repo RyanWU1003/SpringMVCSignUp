@@ -54,7 +54,13 @@
 </tr>
 <tr>
 <td>性別</td>
-<td><input type="text" id="gender" name="gender" /></td>
+<td><input type="radio" id="gender1" name="gender" value="男"  />
+	<label for="gender1">男</label>
+	<input type="radio" id="gender2" name="gender" value="女" />
+	<label for="gender1">女</label>
+	<input type="radio" id="gender3" name="gender" value="秘密"  checked="checked"/>
+	<label for="gender1">秘密</label>
+</td>
 <td>${err.gender }</td>
 </tr>
 </table>

@@ -83,7 +83,7 @@ public class RegisterController {
 		
 		m.addAttribute("selection","all");
 			
-		return "success";
+		return "success.jsp";
 		
 		
 	}

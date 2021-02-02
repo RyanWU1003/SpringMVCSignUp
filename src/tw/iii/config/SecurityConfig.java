@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		.authorizeRequests()
 	      .antMatchers("/home","/login","/register.jsp","/register.controller","/css/**","/getAllProduct","/getProductDetail","/selectSpecies","/selectBrand").permitAll()
-	      .antMatchers("/addToCart","/loadMyCart","/goToCart","/member.jsp").hasAnyRole("USER")
+	      .antMatchers("/addToCart","/loadMyCart","/goToCart","/member.jsp","/changepwd.jsp").hasAnyRole("USER")
 //			.anyRequest().authenticated()
 			.and()
 			
@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.loginPage("/login")
 			.usernameParameter("account")
 			.loginProcessingUrl("/perform_login")
-			.defaultSuccessUrl("/home.jsp", true)
+			.defaultSuccessUrl("/home.jsp", true)		//  /select_member   /home.jsp
 			.failureUrl("/login?error")
 			.and()
 		.logout()

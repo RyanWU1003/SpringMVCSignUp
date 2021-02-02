@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>會員專區</title>
+<c:set var="path" value="${pageContext.request.contextPath }"></c:set>
+	<script src="${path}/css/javascripts/jquery-3.5.1.min.js"/></script>
 </head>
 <body>
 <c:url value="select_member" var="memberUrl" />
@@ -24,7 +26,7 @@
 <c:when test="${selection == 'all' or empty selection}">
 <c:forEach var="member" items="${memberList }">
 <table>會員資料
-<a href="updatePage">修改</a>
+<!-- <a href="updatePage">修改</a> -->
 <tr>
 <th>帳號</th>
 <th>${member.account}</th>
@@ -69,6 +71,12 @@
 <c:forEach var="member" items="${memberList }">
 <c:url value="update_member" var="memberUrl" />
 <form method="post" action="${memberUrl} ">
+
+<script type="text/javascript">
+	
+
+</script>
+
 <table>修改會員資料
 
 <tr>
@@ -98,7 +106,14 @@
 
 <tr>
 <th>性別</th>
-<th><input type="text" name="gender" id="gender" value="${member.gender}"></th>
+<th>
+	<input type="radio" id="gender1" name="gender" value="男" <c:if test="${member.gender=='男' }">checked="checked"</c:if> />
+	<label for="gender1">男</label>
+	<input type="radio" id="gender2" name="gender" value="女" <c:if test="${member.gender=='女' }">checked="checked"</c:if> />
+	<label for="gender1">女</label>
+	<input type="radio" id="gender3" name="gender" value="秘密" <c:if test="${member.gender=='秘密' }">checked="checked"</c:if> />
+	<label for="gender1">秘密</label>
+</th>		<!-- <input type="text" name="gender" id="gender" value="${member.gender}"> -->
 </tr>
 </table>
 <div>
@@ -109,7 +124,7 @@
 </c:forEach>
 </c:when>
 </c:choose>
-<a href="select_member">會員資料</a>
+<a href="updatePage">修改會員資料</a>		<!-- updatePage   select_member -->
 <!-- <a href="update_member">會員資料修改</a> -->
 <a href="changepwd.jsp">更換密碼</a>
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
