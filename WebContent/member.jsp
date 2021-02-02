@@ -52,7 +52,7 @@
 
 <tr>
 <th>生日</th>
-<th>${member.birthday}</th><!-- ${member.birthday} -->
+<th><fmt:formatDate value="${member.birthday}" pattern="yyyy/MM/dd"/> </th><!-- ${member.birthday} -->
 </tr>
 
 <tr>
@@ -93,7 +93,7 @@
 
 <tr>
 <th>生日</th>
-<th><input type="text" name="birthday" id="birthday" value="${member.birthday}"></th><!-- ${member.birthday} -->
+<th><input type="text" name="birthday" id="birthday" value="<fmt:formatDate value="${member.birthday}" pattern="yyyy/MM/dd"/>"></th><!-- ${member.birthday} -->
 </tr>
 
 <tr>
