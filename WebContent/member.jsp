@@ -10,7 +10,9 @@
 </head>
 <body>
 <c:url value="select_member" var="memberUrl" />
-<form method="get" action="${memberUrl} }"></form>
+<form method="post" action="${memberUrl} }">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+</form>
 
 <c:url value="updatePage" var="memberUrl" />
 <form method="get" action="${memberUrl} }"></form>
