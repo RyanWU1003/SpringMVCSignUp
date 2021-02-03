@@ -131,15 +131,15 @@
             <div class="err">${errors.password}</div>
             
             <input type="submit" id="btn-submit" class="btn" value="submit"/>
-            <button id="register" class="btn"><a href="register.jsp">註冊</a></button>
             
-            <div class="forgetpass">
-                 <a href="forgetpwd.jsp">忘記密碼</a>
-            </div>
             
             <div id="warning" class="err">${errors.error}</div>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
+            <button id="register" class="btn" onclick="location.href='register.jsp'" ><a href="register.jsp">註冊</a></button>		<!-- onclick="self.location.href='http://localhost:8080/SpringMVCWebProject//register.jsp'" -->
+            <div class="forgetpass">
+                 <a href="forgetpwd.jsp">忘記密碼</a>
+            </div>
 </div>
 
 </body>

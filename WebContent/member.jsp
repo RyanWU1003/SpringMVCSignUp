@@ -19,9 +19,6 @@
 <c:url value="updatePage" var="memberUrl" />
 <form method="get" action="${memberUrl} }"></form>
 
-<%-- <c:url value="update_member" var="memberUrl" />
-<form method="post" action="${memberUrl} }"></form> --%>
-
 <c:choose>
 <c:when test="${selection == 'all' or empty selection}">
 <c:forEach var="member" items="${memberList }">

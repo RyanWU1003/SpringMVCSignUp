@@ -75,7 +75,7 @@ public class MemberDAO implements IMemberDao {
 //		}
 		return query.list();
 	}
-	
+	@Override
 	public List<Member> selectOldpwd(String Account) {
 		Session session = sessionfactory.getCurrentSession();
 		Query<Member> query = session.createQuery("select password from Member where account=?1");

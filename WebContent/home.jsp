@@ -14,10 +14,10 @@
 	<%= SecurityContextHolder.getContext().getAuthentication().getName() %>	<!-- 取得登入的帳號 -->
 	<c:url value="/perform_logout" var="logoutUrl" />
 	<form method="post" action="${logoutUrl}">
-		<input value="Logout" type="submit"> 
+		<input value="登出" type="submit"> 
 		<a href="productPage.jsp">購物</a>
 		<a href="select_member">會員專區</a>	<!-- "select_member"    member.jsp-->
-		<a href="index.jsp">登入</a>
+		<a href="login.jsp">登入</a>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 </body>

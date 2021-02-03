@@ -4,21 +4,13 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +31,11 @@ public class MemberController {
 	private  BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	};
+	@RequestMapping(path = "/perform_login", method = RequestMethod.POST)
+	public String login() {
+		return "login.jsp";
+	}
+	
 	//顯示會員資料
 	@RequestMapping(path = "/select_member",method = RequestMethod.GET)
 	public String selectmember(Model m) {
@@ -83,7 +80,7 @@ public class MemberController {
 		return "login.jsp";
 	}
 	
-	
+	//更新會員資料取得會員資料		
 	@RequestMapping(path = "/updatePage",method = RequestMethod.GET)
 	public String updatePag(Model m) {
 		String account = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -93,7 +90,10 @@ public class MemberController {
 		return "member.jsp";
 	}
 	
+	
+	
 	//更新會員資料
+
 	@RequestMapping(path = "/update_member",method = RequestMethod.POST)
 	public String updatemember(@RequestParam(name = "username") String username ,
 			@RequestParam(name = "email") String email ,
@@ -107,7 +107,11 @@ public class MemberController {
 		
 		return "member.jsp" ;
 	}
+	
+	
 	//忘記密碼寄系統信
+	@Autowired
+	private JavaMailSender mailsender;
 	@RequestMapping(path = "/forgetpwd.controller",method = RequestMethod.POST)
 	public String forgetpwd(@RequestParam(name = "account") String account,@RequestParam(name = "email") String email,Model m) {
 		Map<String, String> err = new HashMap<String,String>();
@@ -129,44 +133,52 @@ public class MemberController {
 		String mail1 = mail.toString().trim();
 		mail1 = mail1.substring(1, mail1.length() - 1);
 		System.out.println(mail1);
-		int x = (int) (100+Math.random()*1000);
+		
+		int x = (int) (100+Math.random()*5000);
 		String pwd = "asd"+String.valueOf(x);
 		System.out.println(pwd);
 		
 		mbs.updatepassword(account, pwd);
 		
-		String host = "smtp.gmail.com";			//Gmail的TLS or SSL(身分驗證)
-		int port = 587;							//Gmail的TLS/STARTTLS 的Port號
-		final String sendUserMail = "testw1003@gmail.com";
-		final String sendUserpassword = "qwe@258741";
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(mail1);
+		message.setSubject("忘記密碼");
+		message.setText("你的新密碼為： \n"+pwd+"\n請重新登入後立即更換密碼，保護帳號安全");
+		mailsender.send(message);
 		
-		Properties props = new Properties();
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.auth", "true");		//這個引數設為true，讓伺服器進行認證,認證使用者名稱和密碼是否正確
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.port", port);
-		
-		Session session = Session.getInstance(props, new Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(sendUserMail, sendUserpassword);//取得寄信信箱/密碼設定
-			}
-		});
-		try {
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(sendUserMail));//寄信人信箱
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail1));//收信人信箱
-			message.setSubject("忘記密碼");						//寄信標題
-			message.setText("你的新密碼為： \n"+pwd+"\n請重新登入後立即更換密碼，保護帳號安全");				//寄信內容
-			Transport transport = session.getTransport("smtp");
-			transport.connect(host, sendUserMail, sendUserpassword);
-			transport.send(message);
-			System.out.println("寄信成功111");
-			
-		} catch (MessagingException e) {
-			
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
+//		String host = "smtp.gmail.com";			//Gmail的TLS or SSL(身分驗證)
+//		int port = 587;							//Gmail的TLS/STARTTLS 的Port號
+//		final String sendUserMail = "testw1003@gmail.com";
+//		final String sendUserpassword = "qwe@258741";
+//		
+//		Properties props = new Properties();
+//		props.put("mail.smtp.host", host);
+//		props.put("mail.smtp.auth", "true");		//這個引數設為true，讓伺服器進行認證,認證使用者名稱和密碼是否正確
+//		props.put("mail.smtp.starttls.enable", "true");
+//		props.put("mail.smtp.port", port);
+//		
+//		Session session = Session.getInstance(props, new Authenticator() {
+//			protected PasswordAuthentication getPasswordAuthentication() {
+//				return new PasswordAuthentication(sendUserMail, sendUserpassword);//取得寄信信箱/密碼設定
+//			}
+//		});
+//		try {
+////			Thread.currentThread().run();
+//			Message message = new MimeMessage(session);
+//			message.setFrom(new InternetAddress(sendUserMail));//寄信人信箱
+//			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail1));//收信人信箱
+//			message.setSubject("忘記密碼");						//寄信標題
+//			message.setText("你的新密碼為： \n"+pwd+"\n請重新登入後立即更換密碼，保護帳號安全");				//寄信內容
+//			Transport transport = session.getTransport("smtp");
+//			transport.connect(host, sendUserMail, sendUserpassword);
+//			transport.send(message);
+//			System.out.println("寄信成功111");
+//			
+//		} catch (MessagingException e) {
+//			
+//			e.printStackTrace();
+//			throw new RuntimeException(e);
+//		}
 		
 		return "login.jsp";
 	}

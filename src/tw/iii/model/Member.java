@@ -44,8 +44,8 @@ public class Member {
 	@Column(name = "GENDER")
 	private String gender;
 	
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member",cascade = CascadeType.ALL)
-	private Set<TradingRecord> tradingRecord = new HashSet<TradingRecord>(); 
+//	@OneToMany(fetch = FetchType.LAZY,mappedBy = "member",cascade = CascadeType.ALL)
+//	private Set<TradingRecord> tradingRecord = new HashSet<TradingRecord>(); 
 	
 	public Member() {
 		
@@ -124,13 +124,13 @@ public class Member {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	
-	public Set<TradingRecord> getTradingRecord() {
-		return tradingRecord;
-	}
-
-	public void setTradingRecord(Set<TradingRecord> tradingRecord) {
-		this.tradingRecord = tradingRecord;
-	}
+//	
+//	public Set<TradingRecord> getTradingRecord() {
+//		return tradingRecord;
+//	}
+//
+//	public void setTradingRecord(Set<TradingRecord> tradingRecord) {
+//		this.tradingRecord = tradingRecord;
+//	}
 
 }
