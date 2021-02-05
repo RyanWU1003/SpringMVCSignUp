@@ -12,7 +12,7 @@
 </head>
 <body>
 <c:url value="select_member" var="memberUrl" />
-<form method="post" action="${memberUrl} }">
+<form method="get" action="${memberUrl} }">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 </form>
 
@@ -98,7 +98,7 @@
 
 <tr>
 <th>生日</th>
-<th><input type="text" name="birthday" id="birthday" value="<fmt:formatDate value="${member.birthday}" pattern="yyyy/MM/dd"/>"></th><!-- ${member.birthday} -->
+<th><input type="text" name="birthday" id="birthday" value="<fmt:formatDate value="${member.birthday}" pattern="yyyy-MM-dd"/>"></th><!-- ${member.birthday} -->
 </tr>
 
 <tr>
